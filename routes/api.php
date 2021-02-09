@@ -14,6 +14,4 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/','VideoController@create');
-Route::post('/','VideoController@store');
-Route::get('/{image}','VideoController@show');
+
