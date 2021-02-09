@@ -19,13 +19,9 @@ class VideoController extends Controller
 
         $video= Video::create([
             'name'=>basename($path),
-            'path'=>Storage::disk('s3')->path($path)
+            'path'=>Storage::disk('s3')->url($path)
             ]);
 
-        return $video;
-    }
-    public function show(Video $video)
-    {
-
+        return url($path) ;
     }
 }

@@ -17,4 +17,4 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/','App\Http\Controllers\VideoController@create');
 Route::post('/','App\Http\Controllers\VideoController@store');
-Route::get('/{video}','App\Http\Controllers\VideoController@show');
+
