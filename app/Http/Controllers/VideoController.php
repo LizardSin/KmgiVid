@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 
+use App\Models\videos_results;
 use Aws\Rekognition\RekognitionClient;
 use Illuminate\Http\Request;
 use App\Models\Models\Video;
@@ -35,10 +36,25 @@ class VideoController extends Controller
         while($status == 'IN_PROGRESS'):
             $content=$client -> GetContentModeration(['JobId'=>$results_labels]);
             $status = $content->get ('JobStatus');
-            sleep(2);
+            sleep(3);
         endwhile;
         $content_labels = $content->get('ModerationLabels');
+        foreach ($content_labels as $el):
+            $moderation_label= $el['ModerationLabel'];
+            $m_sec = $el['Timestamp'];
+            $m_sec=$m_sec/60000;
+            $minutes = round($m_sec,2);
+            $videos_results = videos_results:: create([
+                'description'=>$moderation_label['Name'],
+                'time'=> $minutes,
+            ]);
+        endforeach;
 
-        return dd($content_labels);
+        return redirect()->route('results');
+    }
+    public function allData(){
+        $result = new videos_results();
+        return view('videos.results', ['data'=>$result->all()]);
+
     }
 }
