@@ -28,12 +28,17 @@ class VideoController extends Controller
             'region' => env('AWS_DEFAULT_REGION'),
             'version' => 'latest'
         ]);
-        $results = $client -> detectModerationLabels( ['Image'=>['S3Object'=>['Bucket'=>env('AWS_BUCKET'), 'Name'=>$path]]]);
-        $results_labels = $results->get('ModerationLabels');
+        $results = $client -> StartContentModeration( ['Video'=>['S3Object'=>['Bucket'=>env('AWS_BUCKET'), 'Name'=>$path]]]);
+        $results_labels = $results->get('JobId');
+        $content=$client -> GetContentModeration(['JobId'=>$results_labels]);
+        $status = $content->get ('JobStatus');
+        while($status == 'IN_PROGRESS'):
+            $content=$client -> GetContentModeration(['JobId'=>$results_labels]);
+            $status = $content->get ('JobStatus');
+            sleep(2);
+        endwhile;
+        $content_labels = $content->get('ModerationLabels');
 
-
-
-        return dd($results_labels) ;
-
+        return dd($content_labels);
     }
 }
