@@ -7,6 +7,7 @@ use App\Models\videos_results;
 use Aws\Rekognition\RekognitionClient;
 use Illuminate\Http\Request;
 use App\Models\Models\Video;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class VideoController extends Controller
@@ -42,11 +43,13 @@ class VideoController extends Controller
         foreach ($content_labels as $el):
             $moderation_label= $el['ModerationLabel'];
             $m_sec = $el['Timestamp'];
-            $m_sec=$m_sec/60000;
-            $minutes = round($m_sec,2);
+            $m_sec2 = $m_sec/60000;
+            $minutes = intdiv($m_sec,60000);
+            $seconds = round((fmod($m_sec2,1)*60),2);
+            $time = $minutes . " min " . $seconds . " sec";
             $videos_results = videos_results:: create([
                 'description'=>$moderation_label['Name'],
-                'time'=> $minutes,
+                'time'=> $time,
             ]);
         endforeach;
 
@@ -54,7 +57,14 @@ class VideoController extends Controller
     }
     public function allData(){
         $result = new videos_results();
-        return view('videos.results', ['data'=>$result->all()]);
+        $vid= new video();
+        return view('videos.results', ['data'=>$result->all(), 'vid'=>$vid->all()->last()]);
 
+    }
+    public function Trunc(){
+        DB::table('videos_results')->truncate();
+        $result = new videos_results();
+        $vid= new video();
+        return view('videos.results', ['data'=>$result->all(), 'vid'=>$vid->all()->last()]);
     }
 }

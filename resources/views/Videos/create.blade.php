@@ -1,16 +1,19 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <title>Video app</title>
-    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+    <meta charset="utf-8">
+    <meta name = "viewport" content="width = device-width, initial-scale = 1.0">
+    <meta http-equiv="X-UA-Compayible" content = "ie=edge">
+    <title> Upload </title>
+    <link rel="stylesheet" type="text/css" href="{{asset('/css/style.css')}}">
 
 </head>
 <body>
 <div class="max-w-lg mx-auto py-8">
-    <form action="/" method="post" class="flex items-center justify-between border border-gray-300 p-4 rounded" enctype="multipart/form-data">
+    <form class="form" action="" method="POST" enctype="multipart/form-data">
         @csrf
         <input type="file" name="video" id="video">
-        <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded " >Загрузить видео</button>
+        <button class = "btn" type = "submit">Submit</button>
     </form>
 </div>
 </body>

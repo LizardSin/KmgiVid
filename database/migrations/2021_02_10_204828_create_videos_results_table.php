@@ -16,7 +16,7 @@ class CreateVideosResultsTable extends Migration
         Schema::create('videos_results', function (Blueprint $table) {
             $table->id();
             $table->Longtext('description');
-            $table->Double('time');
+            $table->string('time');
             $table->timestamps();
         });
     }
