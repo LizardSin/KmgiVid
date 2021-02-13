@@ -15,8 +15,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::get('/','App\Http\Controllers\VideoController@create')->name('home');
+Route::view('/','videos.create2')->name('home');
+/*Route::get('/','App\Http\Controllers\VideoController@try123');*/
 Route::post('/','App\Http\Controllers\VideoController@store');
-Route::get('/results','App\Http\Controllers\VideoController@allData')->name('results');
+
 Route::get('/cleared','App\Http\Controllers\VideoController@Trunc')->name('Trunc');
 

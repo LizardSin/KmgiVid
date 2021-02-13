@@ -9,13 +9,16 @@ use Illuminate\Http\Request;
 use App\Models\Models\Video;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Collection;
 
 class VideoController extends Controller
 {
-    public function create()
-    {
-        return view('videos.create');
-    }
+   /* public function try123(){
+        $vid= new video();
+        $result = new videos_results();
+        $vid2=$vid->all('id')->last()->id;
+        return $result->all()->where('video_id',$vid2);
+}*/
     public function store(Request $request)
     {
         $path = $request->file('video')->store('videos', 's3');
@@ -40,6 +43,8 @@ class VideoController extends Controller
             sleep(3);
         endwhile;
         $content_labels = $content->get('ModerationLabels');
+        $result = new videos_results();
+        $vid= new video();
         foreach ($content_labels as $el):
             $moderation_label= $el['ModerationLabel'];
             $m_sec = $el['Timestamp'];
@@ -47,24 +52,22 @@ class VideoController extends Controller
             $minutes = intdiv($m_sec,60000);
             $seconds = round((fmod($m_sec2,1)*60),2);
             $time = $minutes . " min " . $seconds . " sec";
+
             $videos_results = videos_results:: create([
                 'description'=>$moderation_label['Name'],
                 'time'=> $time,
+                'video_id'=>$vid->all('id')->last()->id
             ]);
         endforeach;
 
-        return redirect()->route('results');
-    }
-    public function allData(){
-        $result = new videos_results();
-        $vid= new video();
-        return view('videos.results', ['data'=>$result->all(), 'vid'=>$vid->all()->last()]);
 
+        $video_id=$vid->all('id')->last()->id;
+        return view('videos.result',['data'=>$result->all()->where('video_id', $video_id)]);
     }
+
     public function Trunc(){
         DB::table('videos_results')->truncate();
-        $result = new videos_results();
-        $vid= new video();
-        return view('videos.results', ['data'=>$result->all(), 'vid'=>$vid->all()->last()]);
+        DB::table('videos')->truncate();
+        return redirect()->route('home');
     }
 }
