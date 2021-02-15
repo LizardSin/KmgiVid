@@ -22,7 +22,20 @@
         </div>
 
         <button class = "btn btn-outline-light btn-block text-center" type = "submit">Submit</button>
+        <br>
+        <h5 class = "text-white text-left my-2"> Select method</h5>
+        <div class="custom-control custom-radio my-2 text-left text-white">
+            <input type="radio" id="customRadio1" value = "content" name="radio" class="custom-control-input">
+            <label class="custom-control-label" for="customRadio1">Content Moderation</label>
+        </div>
+        <div class="custom-control custom-radio my-1 text-left text-white">
+            <input type="radio" id="customRadio2" value="label" name="radio" class="custom-control-input">
+            <label class="custom-control-label" for="customRadio2">Label Detection</label>
+        </div>
     </form>
+    <br>
+    @yield('video-link')
+
     <script>
         $(".custom-file-input").on("change", function() {
             var fileName = $(this).val().split("\\").pop();
@@ -36,8 +49,12 @@
 
 </div>
 </div>
-<nav class="navbar fixed-bottom navbar-dark bg-dark">
-    <a class="navbar-brand" href="{{route('Trunc')}}">Clear Database</a>
+<nav class="navbar fixed-bottom navbar-dark bg-dark" style="height: 45px">
+    <a class="navbar-brand" href="{{route('Trunc')}}">
+        <h5>
+            Clear Database
+        </h5>
+    </a>
 </nav>
 </body>
 </html>

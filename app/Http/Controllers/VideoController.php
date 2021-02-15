@@ -27,7 +27,13 @@ class VideoController extends Controller
            'name'=>basename($path),
            'path'=>Storage::disk('s3')->url($path)
        ]);
-       return $this->LabelModeration($path);
+       if ($request->get('radio') == 'content'):
+           return $this->ContentModeration($path);
+       elseif($request->get('radio') == 'label'):
+           return $this->LabelDetection($path);
+
+       else: return Null;
+       endif;
    }
     public function ContentModeration($path)
     {
@@ -68,7 +74,7 @@ class VideoController extends Controller
         $video_id=$vid->all('id')->last()->id;
         return view('videos.result',['data'=>$result->all()->where('video_id', $video_id)]);
     }
-    public function LabelModeration($path){
+    public function LabelDetection($path){
         $client = new RekognitionClient([
             'region' => env('AWS_DEFAULT_REGION'),
             'version' => 'latest'
@@ -103,7 +109,8 @@ class VideoController extends Controller
 
 
         $video_id=$vid->all('id')->last()->id;
-        return  view('videos.result',['data'=>$result->all()->where('video_id', $video_id)]);
+        $video_url=$vid->all('path')->last()->path;
+        return  view('videos.result',['data'=>$result->all()->where('video_id', $video_id), 'video_url'=>$video_url]);
     }
 
     public function Trunc(){
