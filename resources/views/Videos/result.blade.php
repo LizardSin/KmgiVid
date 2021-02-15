@@ -9,6 +9,7 @@
     @endsection
 @section('results')
 <table class ="table table-hover table-bordered table-light" >
+    <input class="form-control" id="myInput" type="text" placeholder="Search...">
     <thead class ="thead-light">
         <tr>
             <th>Found №</th>
@@ -17,7 +18,8 @@
             <th>Confidence %</th>
         </tr>
     </thead>
-    <tbody>
+
+    <tbody id="myTable">
         @foreach ($data as $el)
             <tr>
                 <td></td>
@@ -35,4 +37,14 @@
             });
         });
     </script>
+<script>
+    $(document).ready(function(){
+        $("#myInput").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+            $("#myTable tr").filter(function() {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+</script>
 @endsection
