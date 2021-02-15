@@ -16,7 +16,7 @@
     <td></td>
     <td>{{$el->description}}</td>
     <td>{{$el->time}}</td>
-    <td></td>
+    <td>{{$el->confidence}}%</td>
 </tr>
     @endforeach
 </table>
