@@ -70,9 +70,9 @@ class VideoController extends Controller
             ]);
         endforeach;
 
-
+        $video_url=$vid->all('path')->last()->path;
         $video_id=$vid->all('id')->last()->id;
-        return view('videos.result',['data'=>$result->all()->where('video_id', $video_id)]);
+        return view('videos.result',['data'=>$result->all()->where('video_id', $video_id), 'video_url'=>$video_url]);
     }
     public function LabelDetection($path){
         $client = new RekognitionClient([

@@ -9,7 +9,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 </head>
-<body style="background: #da513d">
+<body style="background: #666666">
 <div class = "d-md-flex flex-md-equal w-100 my-md-3 pl-md-3">
 
 <div class=" text-center py-3 px-3 float-left mw-25" >
@@ -18,7 +18,7 @@
         @csrf
         <div class = "custom-file my-1">
         <input type="file" class="custom-file-input" name="video" id = "video">
-        <label class="custom-file-label" for="video">Choose file</label>
+        <label class="custom-file-label text-left" for="video">Choose file</label>
         </div>
 
         <button class = "btn btn-outline-light btn-block text-center" type = "submit">Submit</button>
