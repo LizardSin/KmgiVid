@@ -12,18 +12,24 @@
 <body style="background: #666666">
 <div class = "d-md-flex flex-md-equal w-100 my-md-3 pl-md-3">
 
-<div class=" text-center py-3 px-3 float-left mw-25" >
+<div class=" text-center py-1 px-3 float-left mw-25" >
 
     <form class="form" action="" method="POST" enctype="multipart/form-data">
         @csrf
-        <div class = "custom-file my-1">
+        <br>
+        <br>
+        <div class="dropzone">
+            <input type="file" id="input-file-now" class="file-upload" />
+        </div>
+        <div class = "custom-file">
         <input type="file" class="custom-file-input" name="video" id = "video">
         <label class="custom-file-label text-left" for="video">Choose file</label>
         </div>
 
         <button class = "btn btn-outline-light btn-block text-center" type = "submit">Submit</button>
         <br>
-        <h5 class = "text-white text-left my-2"> Select method</h5>
+        <div class  ="">
+        <h5 class = "text-white my-2 text-left"> Select method</h5>
         <div class="custom-control custom-radio my-2 text-left text-white">
             <input type="radio" id="customRadio1" value = "content" name="radio" class="custom-control-input">
             <label class="custom-control-label" for="customRadio1">Content Moderation</label>
@@ -32,7 +38,11 @@
             <input type="radio" id="customRadio2" value="label" name="radio" class="custom-control-input">
             <label class="custom-control-label" for="customRadio2">Label Detection</label>
         </div>
+        </div>
     </form>
+    <script>
+        $('.file-upload').file_upload();
+    </script>
     <br>
     @yield('video-link')
 
@@ -43,7 +53,7 @@
         });
     </script>
 </div>
-<div class="container float-right mw-50 text-center py-3 px-3">
+<div class="container d-flex flex-column justify-content-center mw-50 text-center py-3 px-3 mx-auto">
 
     @yield('results')
 

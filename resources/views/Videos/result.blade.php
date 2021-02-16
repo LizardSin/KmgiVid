@@ -3,13 +3,14 @@
  Result
 @endsection
 @section('video-link')
-    <div class="embed-responsive embed-responsive-16by9">
+    <div class="embed-responsive embed-responsive-16by9 border border-white border-5 rounded">
         <iframe class="embed-responsive-item" src="{{$video_url}}" allowfullscreen></iframe>
     </div>
     @endsection
 @section('results')
-<table class ="table table-hover table-bordered table-light" >
-    <input class="form-control" id="myInput" type="text" placeholder="Search...">
+<div class="table-responsive">
+<table class ="table table-hover table-light table-bordered">
+    <input class="form-control flex-fill" id="myInput" type="text" placeholder="Search...">
     <thead class ="thead-light">
         <tr>
             <th>Found №</th>
@@ -30,6 +31,8 @@
         @endforeach
     </tbody>
 </table>
+</div>
+
     <script>
         $(function(){
             $('table td:first-child').each(function (i) {

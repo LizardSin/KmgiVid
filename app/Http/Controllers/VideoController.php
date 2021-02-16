@@ -27,10 +27,11 @@ class VideoController extends Controller
            'name'=>basename($path),
            'path'=>Storage::disk('s3')->url($path)
        ]);
+
        if ($request->get('radio') == 'content'):
            return $this->ContentModeration($path);
        elseif($request->get('radio') == 'label'):
-           return $this->LabelDetection($path);
+           return $this->LabelDetection($path) ;
 
        else: return Null;
        endif;
@@ -52,8 +53,7 @@ class VideoController extends Controller
             sleep(3);
         endwhile;
         $content_labels = $content->get('ModerationLabels');
-        $result = new videos_results();
-        $vid= new video();
+        $vid_id= DB::table('videos')->latest()->first()->id;
         foreach ($content_labels as $el):
             $moderation_label= $el['ModerationLabel'];
             $m_sec = $el['Timestamp'];
@@ -66,13 +66,13 @@ class VideoController extends Controller
                 'description'=>$moderation_label['Name'],
                 'confidence'=>round($moderation_label['Confidence']),
                 'time'=> $time,
-                'video_id'=>$vid->all('id')->last()->id
+                'video_id'=>$vid_id
             ]);
         endforeach;
 
-        $video_url=$vid->all('path')->last()->path;
-        $video_id=$vid->all('id')->last()->id;
-        return view('videos.result',['data'=>$result->all()->where('video_id', $video_id), 'video_url'=>$video_url]);
+        $video_url=$vid= DB::table('videos')->latest()->first()->path;
+        $result= DB::table('videos_results')->where('video_id', '=', $vid_id)->get();
+        return view('videos.result',['data'=>$result, 'video_url'=>$video_url]);
     }
     public function LabelDetection($path){
         $client = new RekognitionClient([
@@ -89,8 +89,7 @@ class VideoController extends Controller
             sleep(3);
         endwhile;
         $content_labels = $content->get('Labels');
-        $result = new videos_results();
-        $vid= new video();
+        $vid_id= DB::table('videos')->latest()->first()->id;
         foreach ($content_labels as $el):
             $moderation_label= $el['Label'];
             $m_sec = $el['Timestamp'];
@@ -103,14 +102,14 @@ class VideoController extends Controller
                 'description'=>$moderation_label['Name'],
                 'confidence'=>round($moderation_label['Confidence']),
                 'time'=> $time,
-                'video_id'=>$vid->all('id')->last()->id
+                'video_id'=>$vid_id
             ]);
         endforeach;
 
 
-        $video_id=$vid->all('id')->last()->id;
-        $video_url=$vid->all('path')->last()->path;
-        return  view('videos.result',['data'=>$result->all()->where('video_id', $video_id), 'video_url'=>$video_url]);
+        $video_url=$vid= DB::table('videos')->latest()->first()->path;
+        $result= DB::table('videos_results')->where('video_id', '=', $vid_id)->get();
+        return  view('videos.result',['data'=>$result, 'video_url'=>$video_url]);
     }
 
     public function Trunc(){

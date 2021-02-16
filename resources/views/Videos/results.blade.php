@@ -12,7 +12,7 @@
 <body style="background: #da513d">
 
     <header class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
-        <a class ="my-0 mr-md-2 font-weight-normal" href="{{$vid->path}} ">
+        <a class ="my-0 mr-md-2 font-weight-normal" href="{{$video_url}} ">
             <h5 class ="my-0 mr-md-0 font-weight-normal">Video</h5>
         </a>
         <h5 class ="my-0 mr-md-2 font-weight-normal">Results</h5>
