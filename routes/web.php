@@ -15,9 +15,14 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::view('/','videos.create2')->name('home');
+Route::view('/', 'index'/*'videos.create2'*/)->name('home');
 /*Route::get('/','App\Http\Controllers\VideoController@try123');*/
 Route::post('/','App\Http\Controllers\VideoController@init');
 
 Route::get('/cleared','App\Http\Controllers\VideoController@Trunc')->name('Trunc');
 
+
+
+/*Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');*/

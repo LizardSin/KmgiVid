@@ -12,21 +12,19 @@
 <body style="background: #666666">
 <div class = "d-md-flex flex-md-equal w-100 my-md-3 pl-md-3">
 
-<div class=" text-center py-1 px-3 float-left mw-25" >
+<div class=" text-center py-3 px-3 float-left mw-25" >
 
-    <form class="form" action="" method="POST" enctype="multipart/form-data">
+
+    <form class="form" action="" method="POST" enctype="multipart/form-data" id ="video-upload">
         @csrf
-        <br>
-        <br>
-        <div class="dropzone">
-            <input type="file" id="input-file-now" class="file-upload" />
-        </div>
-        <div class = "custom-file">
-        <input type="file" class="custom-file-input" name="video" id = "video">
+
+        <div class = "custom-file border border-dark border rounded mb-2">
+        <input type="file" class="custom-file-input " name="video" id = "video">
         <label class="custom-file-label text-left" for="video">Choose file</label>
         </div>
 
         <button class = "btn btn-outline-light btn-block text-center" type = "submit">Submit</button>
+
         <br>
         <div class  ="">
         <h5 class = "text-white my-2 text-left"> Select method</h5>
@@ -53,7 +51,7 @@
         });
     </script>
 </div>
-<div class="container d-flex flex-column justify-content-center mw-50 text-center py-3 px-3 mx-auto">
+<div class="container mw-50 text-center py-3 px-3 mx-auto">
 
     @yield('results')
 
