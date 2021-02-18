@@ -33,7 +33,7 @@ class VideoController extends Controller
        elseif($request->get('radio') == 'label'):
            return $this->LabelDetection($path) ;
 
-       else: return Null;
+       else: return $request;
        endif;
    }
     public function ContentModeration($path)

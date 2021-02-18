@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name = "viewport" content="width = device-width, initial-scale = 1.0">
     <meta http-equiv="X-UA-Compayible" content = "ie=edge">
+    <link rel="shortcut icon" href="img/up.png" />
     <title> Upload @yield('title') </title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -18,16 +19,20 @@
     <form class="form" action="" method="POST" enctype="multipart/form-data" id ="video-upload">
         @csrf
 
-        <div class = "custom-file border border-dark border rounded mb-2">
+        <div class = "custom-file border border-dark border rounded mb-1">
         <input type="file" class="custom-file-input " name="video" id = "video">
         <label class="custom-file-label text-left" for="video">Choose file</label>
         </div>
-
+        <select class="form-control custom-select mb-1" name="radio">
+            <option disabled selected hidden>Select method</option>
+            <option value="content">Content moderation</option>
+            <option value="label">Label detection</option>
+        </select>
         <button class = "btn btn-outline-light btn-block text-center" type = "submit">Submit</button>
 
         <br>
         <div class  ="">
-        <h5 class = "text-white my-2 text-left"> Select method</h5>
+        {{--<h5 class = "text-white my-2 text-left"> Select method</h5>
         <div class="custom-control custom-radio my-2 text-left text-white">
             <input type="radio" id="customRadio1" value = "content" name="radio" class="custom-control-input">
             <label class="custom-control-label" for="customRadio1">Content Moderation</label>
@@ -35,11 +40,17 @@
         <div class="custom-control custom-radio my-1 text-left text-white">
             <input type="radio" id="customRadio2" value="label" name="radio" class="custom-control-input">
             <label class="custom-control-label" for="customRadio2">Label Detection</label>
-        </div>
+        </div>--}}
+
         </div>
     </form>
     <script>
         $('.file-upload').file_upload();
+    </script>
+    <script>
+        $(document).ready(function() { //
+            $('.selectpicker').selectpicker();
+        });
     </script>
     <br>
     @yield('video-link')
