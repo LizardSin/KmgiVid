@@ -20,6 +20,7 @@ Route::view('/', 'videos.create2')->name('home');
 Route::post('/','App\Http\Controllers\VideoController@init');
 
 Route::get('/cleared','App\Http\Controllers\VideoController@Trunc')->name('Trunc');
+Route::get('/results', 'App\Http\Controllers\VideoController@AllResults')->name('AllResults');
 
 
 

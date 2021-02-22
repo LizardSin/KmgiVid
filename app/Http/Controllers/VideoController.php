@@ -33,7 +33,7 @@ class VideoController extends Controller
        elseif($request->get('radio') == 'label'):
            return $this->LabelDetection($path) ;
 
-       else: return $request;
+       else: return $this->LabelDetection($path);
        endif;
    }
     public function ContentModeration($path)
@@ -66,7 +66,8 @@ class VideoController extends Controller
                 'description'=>$moderation_label['Name'],
                 'confidence'=>round($moderation_label['Confidence']),
                 'time'=> $time,
-                'video_id'=>$vid_id
+                'video_id'=>$vid_id,
+                'path'=>$path,
             ]);
         endforeach;
 
@@ -90,8 +91,10 @@ class VideoController extends Controller
         endwhile;
         $content_labels = $content->get('Labels');
         $vid_id= DB::table('videos')->latest()->first()->id;
+        $video_url= DB::table('videos')->latest()->first()->path;
         foreach ($content_labels as $el):
             $moderation_label= $el['Label'];
+            if ($moderation_label['Name']=='Human' or $moderation_label['Name']=='Car'):
             $m_sec = $el['Timestamp'];
             $m_sec2 = $m_sec/60000;
             $minutes = intdiv($m_sec,60000);
@@ -102,12 +105,14 @@ class VideoController extends Controller
                 'description'=>$moderation_label['Name'],
                 'confidence'=>round($moderation_label['Confidence']),
                 'time'=> $time,
-                'video_id'=>$vid_id
+                'video_id'=>$vid_id,
+                'path'=>$video_url,
             ]);
+            endif;
         endforeach;
 
 
-        $video_url=$vid= DB::table('videos')->latest()->first()->path;
+
         $result= DB::table('videos_results')->where('video_id', '=', $vid_id)->get();
         return  view('videos.result',['data'=>$result, 'video_url'=>$video_url]);
     }
@@ -116,5 +121,10 @@ class VideoController extends Controller
         DB::table('videos_results')->truncate();
         DB::table('videos')->truncate();
         return redirect()->route('home');
+    }
+    public function AllResults(){
+       $results=DB::table('videos_results')->latest()->get();
+
+       return view('videos.results', ['data'=>$results]);
     }
 }

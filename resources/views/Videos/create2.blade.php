@@ -69,9 +69,14 @@
 </div>
 </div>
 <nav class="navbar fixed-bottom navbar-dark bg-dark" style="height: 45px">
-    <a class="navbar-brand" href="{{route('Trunc')}}">
+        <a class="navbar-brand" href="{{route('Trunc')}}">
+            <h5>
+                Clear Database
+            </h5>
+        </a>
+    <a class="navbar-brand" href="{{route('AllResults')}}">
         <h5>
-            Clear Database
+            All Results
         </h5>
     </a>
 </nav>

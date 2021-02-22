@@ -6,33 +6,69 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Results</title>
+    <link rel="shortcut icon" href="img/up.png" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 </head>
-<body style="background: #da513d">
+<body style="background: #666666">
+<div class="container text-center mt-2 mb-5 mw-100">
+<div class="table-responsive">
+    <table class ="table table-hover table-light table-bordered">
+        <input class="form-control flex-fill mb-1" id="myInput" type="text" placeholder="Search...">
+        <thead class ="thead-light">
+        <tr>
+            <th>Video</th>
+            <th>Description</th>
+            <th>At time</th>
+            <th>Confidence %</th>
+        </tr>
+        </thead>
 
-    <header class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
-        <a class ="my-0 mr-md-2 font-weight-normal" href="{{$video_url}} ">
-            <h5 class ="my-0 mr-md-0 font-weight-normal">Video</h5>
-        </a>
-        <h5 class ="my-0 mr-md-2 font-weight-normal">Results</h5>
-        <a class ="my-0 mr-md-auto font-weight-normal" href="{{route('Trunc')}} ">
-            <h5 class ="my-0 mr-md-0 font-weight-normal">Delete all messages</h5>
-            </a>
-        <nav class="my-0 mr-md-0 me-md-0">
-            <a class="p-0 "  href="{{route('home')}}">
-                <h5 class ="my-0 mr-md-0 font-weight-normal">Main page</h5>
-                </a>
-        </nav>
-    </header>
-    <div class="container">
-    @foreach ($data as $el)
-        <div class="alert alert-warning">
-        <h5>Found № {{$el->id}} </h5>
-        <p>{{$el->description}}</p>
-        <p>{{$el->time}}</p>
-        </div>
-    @endforeach
-    </div>
+        <tbody id="myTable">
+        @foreach ($data as $el)
+            <tr>
+
+
+                <td>
+                    <a class="navbar-brand text-dark" href="{{$el->path}}" target="_blank">
+                        <h5>
+                            Link
+                        </h5>
+                    </a>
+                    </td>
+                <td>{{$el->description}}</td>
+                <td>{{$el->time}}</td>
+                <td>{{$el->confidence}}%</td>
+            </tr>
+        @endforeach
+        </tbody>
+    </table>
+
+</div>
+</div>
+<nav class="navbar fixed-bottom navbar-dark bg-dark" style="height: 45px">
+    <a class="navbar-brand" href="{{route('Trunc')}}">
+        <h5>
+            Clear Database
+        </h5>
+    </a>
+    <a class="navbar-brand" href="{{route('home')}}">
+        <h5>
+            Home
+        </h5>
+    </a>
+</nav>
+<script>
+    $(document).ready(function(){
+        $("#myInput").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+            $("#myTable tr").filter(function() {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+</script>
+
 </body>
 </html>

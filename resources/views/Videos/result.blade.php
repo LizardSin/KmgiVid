@@ -10,7 +10,7 @@
 @section('results')
 <div class="table-responsive">
 <table class ="table table-hover table-light table-bordered">
-    <input class="form-control flex-fill" id="myInput" type="text" placeholder="Search...">
+    <input class="form-control flex-fill mb-1" id="myInput" type="text" placeholder="Search...">
     <thead class ="thead-light">
         <tr>
             <th>Found №</th>
