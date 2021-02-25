@@ -20,6 +20,7 @@ class CreateVideosResultsTable extends Migration
             $table->UnsignedBigInteger('video_id');
             $table->string('confidence');
             $table->string('path');
+            $table->UnsignedBigInteger('quantity');
             $table->timestamps();
         });
     }

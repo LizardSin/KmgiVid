@@ -18,9 +18,9 @@
         <input class="form-control flex-fill mb-1" id="myInput" type="text" placeholder="Search...">
         <thead class ="thead-light">
         <tr>
-            <th>Video</th>
             <th>Description</th>
             <th>At time</th>
+            <th>Quantity</th>
             <th>Confidence %</th>
         </tr>
         </thead>
@@ -30,15 +30,18 @@
             <tr>
 
 
+
                 <td>
                     <a class="navbar-brand text-dark" href="{{$el->path}}" target="_blank">
-                        <h5>
-                            Link
-                        </h5>
+                        <p>
+                            <u>
+                            {{$el->description}}
+                            </u>
+                        </p>
                     </a>
-                    </td>
-                <td>{{$el->description}}</td>
+                </td>
                 <td>{{$el->time}}</td>
+                <td>{{$el->quantity}}</td>
                 <td>{{$el->confidence}}%</td>
             </tr>
         @endforeach

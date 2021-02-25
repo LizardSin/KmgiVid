@@ -16,6 +16,7 @@
             <th>Found №</th>
             <th>Description</th>
             <th>At time</th>
+            <th>Quantity</th>
             <th>Confidence %</th>
         </tr>
     </thead>
@@ -26,6 +27,7 @@
                 <td></td>
                 <td>{{$el->description}}</td>
                 <td>{{$el->time}}</td>
+                <td>{{$el->quantity}}</td>
                 <td>{{$el->confidence}}%</td>
                 </tr>
         @endforeach
