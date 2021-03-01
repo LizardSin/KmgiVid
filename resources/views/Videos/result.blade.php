@@ -16,7 +16,7 @@
             <th>Found №</th>
             <th>Description</th>
             <th>At time</th>
-            <th>Quantity</th>
+            <th>Unique objects</th>
             <th>Confidence %</th>
         </tr>
     </thead>
